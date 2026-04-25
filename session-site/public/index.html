@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cyber Panda Md</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Courier New', monospace;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 600px;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            border: 2px solid #FFD700;
+            border-radius: 10px;
+            padding: 40px;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #FFD700;
+            padding-bottom: 20px;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            color: #FFD700;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            color: #aaa;
+            font-style: italic;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #FFD700;
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 0.9em;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            background: rgba(255, 215, 0, 0.1);
+            border: 2px solid #FFD700;
+            color: #fff;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            font-size: 1em;
+            transition: all 0.3s;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            background: rgba(255, 215, 0, 0.2);
+            box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+        }
+
+        .btn {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+            border: none;
+            color: #000;
+            font-weight: bold;
+            font-size: 1.1em;
+            border-radius: 5px;
+            cursor: pointer;
+            text-transform: uppercase;
+            transition: all 0.3s;
+            margin-bottom: 20px;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(255, 215, 0, 0.5);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .code-display {
+            display: none;
+            background: rgba(255, 215, 0, 0.1);
+            border: 2px solid #FFD700;
+            border-radius: 5px;
+            padding: 20px;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .code-display.show {
+            display: block;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .code-display h2 {
+            color: #FFD700;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+        }
+
+        .code-box {
+            background: rgba(0, 0, 0, 0.8);
+            border: 2px solid #00FF00;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #00FF00;
+            text-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+            letter-spacing: 2px;
+        }
+
+        .status {
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 15px;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .status.waiting {
+            background: rgba(255, 215, 0, 0.2);
+            color: #FFD700;
+            border: 2px solid #FFD700;
+        }
+
+        .status.success {
+            background: rgba(0, 255, 0, 0.2);
+            color: #00FF00;
+            border: 2px solid #00FF00;
+        }
+
+        .status.error {
+            background: rgba(255, 0, 0, 0.2);
+            color: #FF6B6B;
+            border: 2px solid #FF6B6B;
+        }
+
+        .instructions {
+            background: rgba(255, 215, 0, 0.1);
+            border: 2px solid #FFD700;
+            border-radius: 5px;
+            padding: 15px;
+            margin-top: 20px;
+            font-size: 0.9em;
+            line-height: 1.6;
+        }
+
+        .instructions h3 {
+            color: #FFD700;
+            margin-bottom: 10px;
+        }
+
+        .instructions ol {
+            margin-left: 20px;
+        }
+
+        .instructions li {
+            margin-bottom: 8px;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255, 215, 0, 0.3);
+            border-top: 3px solid #FFD700;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .loading.show {
+            display: block;
+        }
+
+        .quote {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 2px solid #FFD700;
+            color: #FFD700;
+            font-style: italic;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🐼 ᴄʏʙᴇʀ ᴘᴀɴᴅᴀ ᴍᴅ 🐼</h1>
+            <p>WhatsApp Pairing Code Generator</p>
+        </div>
+
+        <form id="pairingForm">
+            <div class="form-group">
+                <label for="phoneNumber">📱 WhatsApp Phone Number</label>
+                <input 
+                    type="text" 
+                    id="phoneNumber" 
+                    placeholder="254725391914 (with country code, no +)"
+                    required
+                >
+            </div>
+
+            <button type="submit" class="btn">🔓 GET PAIRING CODE</button>
+
+            <div class="loading" id="loading">
+                <div class="spinner"></div>
+                <p>Generating pairing code...</p>
+            </div>
+
+            <div class="code-display" id="codeDisplay">
+                <h2>✅ PAIRING CODE GENERATED</h2>
+                <p>Enter this code in WhatsApp within 2 minutes:</p>
+                <div class="code-box" id="codeBox">-</div>
+                <p>Session ID: <code id="sessionId" style="color: #aaa;"></code></p>
+                <div class="status waiting" id="status">
+                    ⏳ Waiting for authentication...
+                </div>
+            </div>
+
+            <div class="instructions">
+                <h3>📖 How to use:</h3>
+                <ol>
+                    <li>Enter your WhatsApp phone number</li>
+                    <li>Click "GET PAIRING CODE"</li>
+                    <li>A 6-digit code will appear</li>
+                    <li>Open WhatsApp → Settings → Linked devices</li>
+                    <li>Tap "Link a device" and enter the code</li>
+                    <li>Your bot will be connected!</li>
+                </ol>
+            </div>
+        </form>
+
+        <div class="quote">
+            ᴄʏʙᴇʀ-ᴘᴀɴᴅᴀ-ᴍᴅ-ᴍɪɴɪ-ʙᴏᴛ
+        </div>
+    </div>
+
+    <script>
+        const form = document.getElementById('pairingForm');
+        const phoneInput = document.getElementById('phoneNumber');
+        const loading = document.getElementById('loading');
+        const codeDisplay = document.getElementById('codeDisplay');
+        const codeBox = document.getElementById('codeBox');
+        const sessionIdEl = document.getElementById('sessionId');
+        const status = document.getElementById('status');
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const phoneNumber = phoneInput.value.trim();
+            if (!phoneNumber) {
+                alert('Please enter a phone number');
+                return;
+            }
+
+            loading.classList.add('show');
+            codeDisplay.classList.remove('show');
+
+            try {
+                const response = await fetch('/api/request-code', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ phoneNumber })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    codeBox.textContent = data.code;
+                    sessionIdEl.textContent = data.sessionId;
+                    codeDisplay.classList.add('show');
+                    
+                    // Check status every 2 seconds
+                    checkSessionStatus(data.sessionId);
+                } else {
+                    alert('Error: ' + data.error);
+                }
+            } catch (error) {
+                alert('Error: ' + error.message);
+            } finally {
+                loading.classList.remove('show');
+            }
+        });
+
+        async function checkSessionStatus(sessionId) {
+            const maxAttempts = 60; // Check for 2 minutes
+            let attempts = 0;
+
+            const interval = setInterval(async () => {
+                attempts++;
+                try {
+                    const response = await fetch(`/api/status/${sessionId}`);
+                    const data = await response.json();
+
+                    if (data.authenticated) {
+                        status.className = 'status success';
+                        status.innerHTML = '✅ Successfully authenticated! Your credentials are ready.';
+                        clearInterval(interval);
+                    } else {
+                        const timeLeft = Math.max(0, 120 - (attempts * 2));
+                        status.className = 'status waiting';
+                        status.textContent = `⏳ Waiting... (${timeLeft}s remaining)`;
+                    }
+                } catch (err) {
+                    console.error('Status check error:', err);
+                }
+
+                if (attempts >= maxAttempts) {
+                    clearInterval(interval);
+                    status.className = 'status error';
+                    status.textContent = '❌ Code expired. Please request a new one.';
+                }
+            }, 2000);
+        }
+    </script>
+</body>
+</html>
