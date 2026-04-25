@@ -1,0 +1,11 @@
+node_modules
+npm-debug.log
+.git
+.env
+auth_info_baileys
+peakybot
+recordings
+
+# Ignore session site and server if they are run separately or not needed in the bot container
+session-server/node_modules
+session-site/node_modules

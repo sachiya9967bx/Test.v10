@@ -1,0 +1,24 @@
+{
+  "name": "Peaky Blinders WhatsApp Bot",
+  "description": "WhatsApp Multi-Device Bot with 150+ Commands",
+  "repository": "https://github.com/Fellix-234/Jewish-md",
+  "logo": "https://i.imgur.com/x0oEbLu.png",
+  "keywords": ["whatsapp", "bot", "baileys", "nodejs", "peaky-blinders"],
+  "buildpacks": [
+    {
+      "url": "heroku/nodejs"
+    }
+  ],
+  "formation": {
+    "worker": {
+      "quantity": 1,
+      "size": "basic"
+    }
+  },
+  "env": {
+    "SESSION_ID": {
+      "description": "Your session ID from pairing code",
+      "required": false
+    }
+  }
+}

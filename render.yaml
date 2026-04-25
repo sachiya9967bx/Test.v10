@@ -1,0 +1,19 @@
+services:
+  - type: worker
+    name: peaky-blinders-bot
+    env: node
+    buildCommand: npm install
+    startCommand: node index.js
+    envVars:
+      - key: NODE_ENV
+        value: production
+
+  - type: web
+    name: jewish-md-session-site
+    env: node
+    rootDir: session-site
+    buildCommand: npm install
+    startCommand: node app.js
+    envVars:
+      - key: NODE_ENV
+        value: production
